@@ -1,5 +1,6 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
+import Hospede from "./entity/Hospede"
 
 export const AppDataSource = new DataSource({
     type: "mssql",
@@ -10,7 +11,7 @@ export const AppDataSource = new DataSource({
     database: "hotel",
     synchronize: true,
     logging: true,
-    entities: [],
+    entities: [Hospede],
     migrations: ['src/migration/*.ts'],
     subscribers: [],
     options: {
