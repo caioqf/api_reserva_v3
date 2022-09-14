@@ -13,5 +13,11 @@ export const HospedeRepository = AppDataSource.getRepository(Hospede).extend({
     return this.createQueryBuilder('hospede')
     .where('hospede.email = :email', { email })
     .getOne()
-  }
+  },
+
+  findById(id: number): Promise<Hospede | undefined> {
+    return this.createQueryBuilder('hospede')
+    .where('hospede.id = :id', { id })
+    .getOne()
+  },
 })

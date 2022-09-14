@@ -5,6 +5,7 @@ const hospedeRouter = Router();
 const hospedeController = new HospedeController();
 
 hospedeRouter.get('/', hospedeController.getAll);
+hospedeRouter.get('/:id', hospedeController.getOne);
 hospedeRouter.post('/', hospedeController.create);
 
 export default hospedeRouter
