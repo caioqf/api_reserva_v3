@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import express, { NextFunction, Response, Request, response } from 'express'
 import cors from 'cors';
-import routes from './shared/routes';
+import routes from './shared/router';
 import AppError from './shared/errors/AppError';
 import { AppDataSource } from "./data-source"
 
@@ -21,6 +21,8 @@ app.use(
     res: Response, 
     next: NextFunction
     ) => {
+      console.log(error);
+      
       if (error instanceof AppError) {
         return res.status(error.statusCode).json({
           status: 'error',
