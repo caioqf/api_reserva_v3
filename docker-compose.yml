@@ -1,0 +1,17 @@
+services:
+  sql_server:
+    container_name: sql_server
+    hostname: sql_server
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: "@teste1746"
+      ACCEPT_EULA: "Y"
+  # api_reserva:
+  #   container_name: api_reserva
+  #   hostname: api_reserva
+  #   ports:
+  #     - 3331:3331
+  #   depends_on:
+  #     - sql_server
