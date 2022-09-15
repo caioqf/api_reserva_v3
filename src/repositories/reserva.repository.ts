@@ -15,6 +15,15 @@ export const ReservaRepository = AppDataSource.getRepository(Reserva).extend({
     .where('reserva.numero_do_quarto = :numeroDoQuarto', { numeroDoQuarto })
     .orderBy('reserva.data_reserva', 'DESC')
     .getOne()
-    
+  },
+
+  updateStatus(id: number, status: string) {
+    return this.createQueryBuilder('reserva')
+    .update(Reserva)
+    .set({
+      status_reserva: 'Check-in'
+    })
+    .where('reserva.id = :id', { id })
+    .execute()
   }
 })

@@ -1,5 +1,4 @@
 import Reserva from "../../entity/Reserva";
-import { HospedeRepository } from "../../repositories/hospede.repository";
 import { ReservaRepository } from "../../repositories/reserva.repository";
 import AppError from "../../shared/errors/AppError";
 
@@ -9,15 +8,14 @@ interface IRequest {
 }
 
 class CheckInService {
-  public async execute(data: IRequest): Promise<Reserva> {
-    
-    const reserva = await ReservaRepository.findById(data.id_reserva)
-    console.log(reserva);
+  public async execute(data: IRequest){
     
     // checagem se o checkin está sendo feito pelo dono da reserva
-    // Na teoria o "id_hospede" deveria ser um id relacionado ao token do usuário, sendo impossivel de alterar
-
-    if   (data.id_hospede != reserva.hospede_id) {
+    // Na teoria imagino que o "data.id_hospede" deveria ser um id relacionado ao token do 
+    // usuário, tornando impossivel de alterar e forçar uma reserva em nome de outra pessoa.
+    
+    const reserva = await ReservaRepository.findById(data.id_reserva)    
+    if (data.id_hospede != reserva.hospede_id) {
       throw new AppError('Impossivel fazer checkin desta reserva.', 403)
     }
 
@@ -33,15 +31,9 @@ class CheckInService {
       throw new AppError('Check-out já realizado para está reserva.', 403)
     }
 
-    // TODO -> criar service de update para reserva
-    const updateReserva = new UpdateReserva();
-    await updateReserva.execute({
-      status_reserva: "Check-in"
-    })
-
+    await ReservaRepository.updateStatus(data.id_reserva, 'Check-in')
     
-    
-    return 
+    return { message: 'Check-in realizado' }
   }
 }
 
