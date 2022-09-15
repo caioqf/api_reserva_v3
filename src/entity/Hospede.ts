@@ -13,7 +13,7 @@ class Hospede {
   email: string // TODO-> deveria ter tipo propro, criar se der tempo
 
   @Column('varchar')
-  data_aniversario: string
+  data_aniversario: Date
 
   @Column('varchar')
   telefone: string

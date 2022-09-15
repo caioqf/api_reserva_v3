@@ -41,7 +41,7 @@ Como até o momento há retro-compatibilidade entre os comandos, usaremos nesta 
 #### Rodando
 Na pasta do projeto, rode o seguinte comando no terminal:
 ````
-$ docker-compose up
+$ docker-compose up --build
 ````
 
 ___
