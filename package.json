@@ -6,7 +6,8 @@
    "scripts": {
       "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-esm"
+      "typeorm": "typeorm-ts-node-esm",
+      "migrate-up": "node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/data-source.ts"
    },
    "devDependencies": {
       "@types/cors": "^2.8.12",

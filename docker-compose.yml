@@ -43,7 +43,7 @@ services:
     entrypoint:
       - 'sh'
       - '-c'
-      - 'npm run dev && npx typeorm-ts-node-esm migration:run -d ./src/data-source.ts'
+      - 'npm run migrate-up && npm run dev'
     depends_on:
       sql_server:
         condition: service_healthy
