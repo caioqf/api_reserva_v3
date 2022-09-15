@@ -60,8 +60,8 @@ ___
 
 - Os parâmetros para conexão:
     - porta: 1433,
-    - username: "sa",
-    - password: "@teste1746",
+    - usuário: sa,
+    - senha: @teste1746,
 
 - Um banco com nome **hotel** quem contem o esquema **dbo**. Que é onde todas as tabelas serão armazenadas.  
 
