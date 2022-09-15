@@ -21,7 +21,7 @@ export const ReservaRepository = AppDataSource.getRepository(Reserva).extend({
     return this.createQueryBuilder('reserva')
     .update(Reserva)
     .set({
-      status_reserva: 'Check-in'
+      status_reserva: status
     })
     .where('reserva.id = :id', { id })
     .execute()
