@@ -17,14 +17,16 @@ class Reserva {
   @Column('money')
   valor_reserva: string
 
-  @Column('datetime')
+  @Column('datetime', {
+    default: new Date().toISOString().split('T')[0]
+  })
   data_reserva: string
 
   @Column('date')
-  date_checkin: string
+  data_checkin: string
 
   @Column('date')
-  date_checkout: string
+  data_checkout: string
 
   @Column('varchar')
   status_reserva: string
