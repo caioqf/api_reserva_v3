@@ -4,7 +4,7 @@ export class TableReservas1663188819871 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'reservas',
+            name: 'reserva',
             columns: [
                 {
                     name: 'id',
@@ -39,7 +39,7 @@ export class TableReservas1663188819871 implements MigrationInterface {
                 {
                     name: 'status_reserva',
                     type: 'varchar'
-                },
+                }
             ]
         }))
     }

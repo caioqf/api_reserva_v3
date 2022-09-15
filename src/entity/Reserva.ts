@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { type } from "os";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import Hospede from "./Hospede";
 
 @Entity()
 class Reserva {  
@@ -27,8 +29,8 @@ class Reserva {
   @Column('varchar')
   status_reserva: string
 
-  @Column('int')
-  FK_reserva_hospede
+  @ManyToOne((type)=> Hospede, (fk_hospede) => fk_hospede.id)
+  fk_hospede:  number
 
 }
 
