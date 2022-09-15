@@ -1,5 +1,5 @@
 import Hospede from "../entity/Hospede";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../database/data-source";
 
 export const HospedeRepository = AppDataSource.getRepository(Hospede).extend({
 

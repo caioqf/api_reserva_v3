@@ -22,7 +22,7 @@ $ cd api_reservas_v2
 ## Formas de rodar 
 
 - [Docker](#docker-recomendado)
-- [Manualmente](#manuamente)
+<!-- - [Manualmente](#manuamente) -->
 
 
 ### Docker (recomendado)
@@ -45,7 +45,7 @@ $ docker-compose up
 ````
 
 ___
-### Manuamente
+<!-- ### Manuamente
 
 É uma forma mais trabalhosa de rodar o projeto, mas caso o Docker não seja uma realidade no seu ambiente, é a unica forma de subir a aplicação.
 
@@ -73,10 +73,9 @@ $ npm install
 depois...
 
 ````
-npm run dev
-````
+npm run dev 
+````-->
 
-___
 ## Insomnia Collection
 
 O projeto conta com uma collection do [Insomnia](https://docs.insomnia.rest/) com as rotas da API e seus respectivos endpoints.

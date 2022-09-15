@@ -1,5 +1,5 @@
 import Reserva from "../entity/Reserva";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../database/data-source";
 
 export const ReservaRepository = AppDataSource.getRepository(Reserva).extend({
 

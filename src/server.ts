@@ -3,7 +3,7 @@ import express, { NextFunction, Response, Request, response } from 'express'
 import cors from 'cors';
 import routes from './shared/router';
 import AppError from './shared/errors/AppError';
-import { AppDataSource } from "./data-source"
+import { AppDataSource } from "./database/data-source"
 
 AppDataSource.initialize().then(async () => {
   const app = express()

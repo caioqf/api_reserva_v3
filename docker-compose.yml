@@ -1,3 +1,9 @@
+version: '3.4'
+
+networks:
+  network-api:
+    driver: bridge
+
 services:
   sql_server:
     container_name: sql_server
@@ -5,13 +11,39 @@ services:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     ports:
       - 1433:1433
+    networks:
+      - network-api
     environment:
       SA_PASSWORD: "@teste1746"
       ACCEPT_EULA: "Y"
-  # api_reserva:
-  #   container_name: api_reserva
-  #   hostname: api_reserva
-  #   ports:
-  #     - 3331:3331
-  #   depends_on:
-  #     - sql_server
+    healthcheck:
+      #forma que encontrei para testar se o container do mssql subiu com exito
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "@teste1746" -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  api_reservas:
+    container_name: api_reservas
+    hostname: api_reservas
+    ports:
+      - 3331:3331
+    networks:
+      - network-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - ./:/home/node
+    env_file:
+      - .env
+    working_dir: '/home/node'
+    entrypoint:
+      - 'sh'
+      - '-c'
+      - 'npm run dev && npx typeorm-ts-node-esm migration:run -d ./src/data-source.ts'
+    depends_on:
+      sql_server:
+        condition: service_healthy
