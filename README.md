@@ -1,14 +1,12 @@
-# Awesome Project Build with TypeORM
 
-Steps to run this project:
+# Insomnia Collection
 
-1. Run `npm i` command
-2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+O projeto conta com uma collection do [Insomnia](https://docs.insomnia.rest/) com as rotas da API e seus respectivos endpoints.
+- A collection **"endpoints.json"** pode ser encontrada na pasta **/contrib/**
 
+Basta [importar o arquivo no Insomnia](https://docs.insomnia.rest/insomnia/import-export-data#import-data) para acessar as rotas.
 
 # TypeORM commands
-
 
 - criar migration:
 ````
