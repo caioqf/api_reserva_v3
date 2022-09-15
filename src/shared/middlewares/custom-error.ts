@@ -6,7 +6,7 @@ import AppError from "../errors/AppError";
 export class CustomErrorHandler implements ExpressErrorMiddlewareInterface {
   error(error: any, request: any, response: any, next: (err?: any) => any): void {
     
-    console.error(`[ERROR] ${error.message}`);
+    console.error(error);
     
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({statusCode: error.statusCode, message: error.message})

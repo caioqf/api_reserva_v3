@@ -1,25 +1,32 @@
 import { Body, Get, JsonController, Param, Post } from "routing-controllers";
+import { autoInjectable, inject, injectable } from "tsyringe";
 import { CreateHospedeDto } from "./dto/create-hospede.dto";
-import HospedeServiceImpl from "./hospede.service";
-
-const hospedeService = new HospedeServiceImpl()
+import HospedeService from "./interfaces/hospede.interface";
 
 @JsonController('/hospede')
+@injectable()
 export default class HospedeController {
-
+  constructor(
+    @inject('HospedeService')
+    private readonly hospedeService: HospedeService){}
   
   @Get('/:id')
   public async getOne(@Param('id') id: string): Promise<any> {
-      
-    const hospede = await hospedeService.getOneHospede(parseInt(id))
+    try {
+ 
+      const hospede = await this.hospedeService.getOneHospede(parseInt(id))
   
-    return hospede
+      return hospede
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
 
   @Get('/')
   public async getAll() {
 
-    const hospedes = await hospedeService.getAllHospedes()
+    const hospedes = await this.hospedeService.getAllHospedes()
 
     return hospedes
   }
@@ -27,7 +34,7 @@ export default class HospedeController {
   @Post('/')
   public async create(@Body() hospedeData: CreateHospedeDto) {
   
-      const hospedeCriado = await hospedeService.createHospede(hospedeData)
+      const hospedeCriado = await this.hospedeService.createHospede(hospedeData)
 
       return hospedeCriado
   }

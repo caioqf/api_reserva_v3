@@ -1,5 +1,5 @@
 import IHospede from "../../entity/interfaces/IHospede";
-import { CreateHospedeDto } from "../../hospede/dto/create-hospede.dto";
+import { CreateHospedeDto } from "../dto/create-hospede.dto";
 
 export default interface IHospedeRepository {
   findByName(name: string): Promise<IHospede | undefined>;
@@ -7,4 +7,5 @@ export default interface IHospedeRepository {
   findById(id: number): Promise<IHospede | undefined>
   create(data: CreateHospedeDto): Promise<IHospede>;
   save(hospede: IHospede) ;
+  find(): Promise<IHospede[]>
 }
