@@ -25,9 +25,9 @@ class UpdateReservaService {
       throw new AppError("Quarto se encontra ocupado.", 403);
     }
 
-    const reserva = await ReservaRepository.update('id', data)
+    await ReservaRepository.update('id', data)
 
-    return reserva
+    return 
   }
 }
 

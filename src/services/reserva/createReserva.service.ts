@@ -1,16 +1,16 @@
 import Reserva from "../../entity/Reserva";
 import { ReservaRepository } from "../../repositories/reserva.repository";
 import AppError from "../../shared/errors/AppError";
+import CalculaValorReserva from "./calculaValorReserva.service";
 import CheckQuartoStatus from "./checkQuartoStatus.service";
 
 interface IRequest {
   nome_hotel: string;
   numero_do_quarto: string;
-  valor_reserva: any;
   data_checkin: any;
   data_checkout: any;
   status_reserva: string;
-  id_hospede: number;
+  hospede_id: number;
 }
 
 class CreateReservaService {
@@ -25,13 +25,17 @@ class CreateReservaService {
       throw new AppError("Quarto se encontra ocupado.", 403);
     }
 
+    const calculaReserva = new CalculaValorReserva
+    
+    const valorDaReserva = await calculaReserva.execute({data_checkin: data.data_checkin, data_checkout: data.data_checkout})
+
     const reserva = await ReservaRepository.create({
       nome_hotel: data.nome_hotel,
       numero_do_quarto: data.numero_do_quarto,
-      valor_reserva: data.valor_reserva,
+      valor_reserva: valorDaReserva.toString(),
       data_checkin: data.data_checkin,
       data_checkout: data.data_checkout,
-      fk_hospede: data.id_hospede,
+      hospede_id: data.hospede_id,
       status_reserva: "Confirmada",
     })
 
