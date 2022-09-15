@@ -15,9 +15,9 @@ class CheckInService {
     console.log(reserva);
     
     // checagem se o checkin está sendo feito pelo dono da reserva
-    // Na teoria o "id_hospede" deveria ser um id relacionado ao login do usuário, sendo impossivel de alterar
+    // Na teoria o "id_hospede" deveria ser um id relacionado ao token do usuário, sendo impossivel de alterar
 
-    if (reserva.hospede_id != data.id_hospede) {
+    if   (data.id_hospede != reserva.hospede_id) {
       throw new AppError('Impossivel fazer checkin desta reserva.', 403)
     }
 

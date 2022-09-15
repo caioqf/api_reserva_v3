@@ -31,14 +31,15 @@ class Reserva {
   @Column('varchar')
   status_reserva: string
 
-  @ManyToOne((type)=> Hospede, (fk_hospede) => fk_hospede.id, {
-    eager: true
-  })
-  @JoinColumn({ name: 'Hospede' })
-  Hospede:  Hospede
-
-  @Column('int', {nullable: true})
+  @Column({name: 'hospede_id', nullable: true})
   hospede_id: number
+
+  @ManyToOne(()=> Hospede)
+  @JoinColumn({
+    name: 'hospede_id',
+  })
+  hospede:  Hospede
+
 }
 
 export default Reserva
