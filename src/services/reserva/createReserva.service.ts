@@ -10,6 +10,7 @@ interface IRequest {
   data_checkin: any;
   data_checkout: any;
   status_reserva: string;
+  id_hospede: number;
 }
 
 class CreateReservaService {
@@ -30,6 +31,7 @@ class CreateReservaService {
       valor_reserva: data.valor_reserva,
       data_checkin: data.data_checkin,
       data_checkout: data.data_checkout,
+      fk_hospede: data.id_hospede,
       status_reserva: "Confirmada",
     })
 

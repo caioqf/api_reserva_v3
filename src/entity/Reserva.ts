@@ -1,5 +1,5 @@
 import { type } from "os";
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import Hospede from "./Hospede";
 
 @Entity()
@@ -31,9 +31,14 @@ class Reserva {
   @Column('varchar')
   status_reserva: string
 
-  @ManyToOne((type)=> Hospede, (fk_hospede) => fk_hospede.id)
-  fk_hospede:  number
+  @ManyToOne((type)=> Hospede, (fk_hospede) => fk_hospede.id, {
+    eager: true
+  })
+  @JoinColumn({ name: 'Hospede' })
+  Hospede:  Hospede
 
+  @Column('int', {nullable: true})
+  hospede_id: number
 }
 
 export default Reserva
