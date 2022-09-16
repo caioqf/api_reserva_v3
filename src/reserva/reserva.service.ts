@@ -38,15 +38,15 @@ export default class ReservaServiceImpl implements ReservaService {
     return Reservas;
   }
 
-  async getOneReserva(ReservaId: number): Promise<Reserva> {
+  async getOneReserva(id_reserva: number): Promise<Reserva> {
 
-    const Reserva = await ReservaRepository.findById(ReservaId)
+    const reserva = await ReservaRepository.findById(id_reserva)
     
-    if (!Reserva) {
+    if (!reserva) {
       throw new AppError('Reserva não encontrado', 403)
     }
 
-    return Reserva;
+    return reserva;
   }
 
   async calculaValorReserva(data_checkin: string, data_checkout: string) {
@@ -64,13 +64,14 @@ export default class ReservaServiceImpl implements ReservaService {
   }
 
   async makeCheckin(id_reserva: number, id_hospede: number): Promise<Object>{
+    
     // checagem se o checkin está sendo feito pelo dono da reserva
     // Na teoria imagino que o "data.id_hospede" deveria ser um id relacionado ao token do 
     // usuário, tornando impossivel de alterar e forçar uma reserva em nome de outra pessoa.
     
     const reserva = await ReservaRepository.findById(id_reserva)
     
-    if (id_hospede != reserva.hospede_id) {
+    if (id_hospede != reserva!.hospede_id) {
       throw new AppError('Impossivel fazer checkin desta reserva.', 403)
     }
 
