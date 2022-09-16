@@ -33,11 +33,7 @@ class Reserva {
   @Column({name: 'hospede_id', nullable: true})
   hospede_id: number
 
-  @ManyToOne(()=> Hospede)
-  @JoinColumn({
-    name: 'hospede_id',
-  })
-  hospede:  Hospede
+
 
 }
 

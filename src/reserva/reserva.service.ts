@@ -64,11 +64,12 @@ export default class ReservaServiceImpl implements ReservaService {
   }
 
   async makeCheckin(id_reserva: number, id_hospede: number): Promise<Object>{
-        // checagem se o checkin está sendo feito pelo dono da reserva
+    // checagem se o checkin está sendo feito pelo dono da reserva
     // Na teoria imagino que o "data.id_hospede" deveria ser um id relacionado ao token do 
     // usuário, tornando impossivel de alterar e forçar uma reserva em nome de outra pessoa.
     
-    const reserva = await ReservaRepository.findById(id_reserva)    
+    const reserva = await ReservaRepository.findById(id_reserva)
+    
     if (id_hospede != reserva.hospede_id) {
       throw new AppError('Impossivel fazer checkin desta reserva.', 403)
     }
@@ -82,7 +83,7 @@ export default class ReservaServiceImpl implements ReservaService {
     }
 
     if (reserva.status_reserva === "Check-out") {
-      throw new AppError('Check-out já realizado para está reserva.', 403)
+      throw new AppError('Check-out já realizado para esta reserva.', 403)
     }
 
     await ReservaRepository.updateStatus(id_reserva, 'Check-in')
@@ -112,7 +113,8 @@ export default class ReservaServiceImpl implements ReservaService {
   }
 
   async checkStatusQuarto(numeroDoQuarto: string): Promise<boolean> {
-    
+    // true = ocupado
+    // false = desocupado
     const ocupado = await ReservaRepository.findLatestById(numeroDoQuarto)
   
     if (!ocupado) return false

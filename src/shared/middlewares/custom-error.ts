@@ -6,7 +6,7 @@ import AppError from "../errors/AppError";
 export class CustomErrorHandler implements ExpressErrorMiddlewareInterface {
   error(error: any, request: any, response: any, next: (err?: any) => any): void {
     
-    console.error(error);
+    // console.error(error);
     
     // Verificar se o erro é conhecido, ou seja, gerado pela API propositalmente
     if (error instanceof AppError) {

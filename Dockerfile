@@ -1,4 +1,4 @@
-FROM node:17-alpine as node_base
+FROM node:16.17.0-alpine as node_base
 
 RUN apk update
 
