@@ -12,4 +12,4 @@ FROM node_base as development
 COPY ./package.json ./
 COPY ./package-lock.json ./
 
-RUN npm install --legacy-peer-deps
+RUN npm install --force
