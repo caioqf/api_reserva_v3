@@ -5,6 +5,9 @@ import HospedeServiceImpl from "../hospede/hospede.service"
 import { useContainer } from "routing-controllers"
 import ReservaService from "../reserva/interfaces/reserva.interface"
 import ReservaServiceImpl from "../reserva/reserva.service"
+import { ReservaRepository } from "../reserva/reserva.repository"
+import IReservaRepository from "../reserva/interfaces/IReservaRepository"
+import { Repository } from "typeorm"
 
 export const setupContainer = (): void => {
   useContainer(new TsryingeAdapter(container))
@@ -18,5 +21,12 @@ export const setupContainer = (): void => {
     'ReservaService',
     ReservaServiceImpl
   )
+
+  container.registerSingleton(
+    'Repository',
+    Repository
+  )
+
+
 }
 

@@ -8,16 +8,20 @@ export class CustomErrorHandler implements ExpressErrorMiddlewareInterface {
     
     console.error(error);
     
+    // Verificar se o erro é conhecido, ou seja, gerado pela API propositalmente
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({statusCode: error.statusCode, message: error.message})
     }
 
+    // Se não for conhecido, testa se o erro foi gerado a partir do class-validator
     if (error?.errors?.every((error: any) => error instanceof ValidationError)) {
       const erros = error?.errors?.map((error: ValidationError) => {
         return this.parseError(error)
       })
       return response.status(error.httpCode).json(erros)
     } 
+
+    // exceptions não controladas
     return response.status(error.httpCode || 500).json(error)
   }
 
