@@ -1,5 +1,5 @@
 import { Body, Get, JsonController, Param, Post } from "routing-controllers";
-import { autoInjectable, inject, injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { CreateHospedeDto } from "./dto/create-hospede.dto";
 import HospedeService from "./interfaces/hospede.interface";
 
@@ -12,22 +12,15 @@ export default class HospedeController {
   
   @Get('/:id')
   public async getOne(@Param('id') id: string): Promise<any> {
-    try {
- 
+
       const hospede = await this.hospedeService.getOneHospede(parseInt(id))
-  
       return hospede
-    } catch (error) {
-      console.log(error);
-      
-    }
   }
 
   @Get('/')
   public async getAll() {
 
     const hospedes = await this.hospedeService.getAllHospedes()
-
     return hospedes
   }
 
@@ -35,7 +28,6 @@ export default class HospedeController {
   public async create(@Body() hospedeData: CreateHospedeDto) {
   
       const hospedeCriado = await this.hospedeService.createHospede(hospedeData)
-
       return hospedeCriado
   }
 }

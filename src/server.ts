@@ -6,6 +6,7 @@ import { useExpressServer } from "routing-controllers";
 import HospedeController from "./hospede/hospede.controller";
 import { CustomErrorHandler } from "./shared/middlewares";
 import { setupContainer } from "./config/setup-container";
+import ReservaController from "./reserva/reserva.controller";
 
 
 AppDataSource.initialize().then(async () => {
@@ -15,7 +16,7 @@ AppDataSource.initialize().then(async () => {
   app.use(express.json());
 
   useExpressServer(app, {
-    controllers: [HospedeController],
+    controllers: [HospedeController, ReservaController],
     defaultErrorHandler: false,
     middlewares: [CustomErrorHandler]
   })

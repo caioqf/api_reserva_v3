@@ -1,4 +1,4 @@
-import { Action, ClassConstructor, IocAdapter } from "routing-controllers";
+import { ClassConstructor, IocAdapter } from "routing-controllers";
 import { DependencyContainer } from "tsyringe";
 
 export class TsryingeAdapter implements IocAdapter {
