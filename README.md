@@ -11,11 +11,11 @@ Uma simples API REST para gerenciamento de hospedes e reservas dos hospedes de u
 Primeiramente é necessário clonar o projeto e entrar na pasta do mesmo:
 
 ````
-$ git clone https://github.com/caioqf/api_reservas_v2.git
+$ git clone https://github.com/caioqf/api_reserva_v3.git
 ````
 depois..
 ````
-$ cd api_reservas_v2
+$ cd api_reserva_v3
 ````
 
 
