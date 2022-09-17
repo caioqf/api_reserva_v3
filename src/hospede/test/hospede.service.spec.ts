@@ -90,6 +90,7 @@ describe("Hospede Service", () => {
     })
 
   })
+  
   describe("retornar todos os hospedes", () => {
     it('deve retornar todos hospedes com sucesso', () => {
       // Arrange 

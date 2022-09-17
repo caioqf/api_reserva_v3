@@ -121,10 +121,12 @@ export default class ReservaServiceImpl implements ReservaService {
     // true = ocupado
     // false = desocupado
     const ocupado = await ReservaRepository.findLatestById(numeroDoQuarto)
-  
-    if (!ocupado || ocupado?.status_reserva === "Cancelada" || ocupado.status_reserva === 'Check-out') return false
+    console.log(ocupado);
+    
+    if (!ocupado) return false
     
     if(ocupado.status_reserva === "Check-in" || ocupado.status_reserva === "Confirmada") return true
   
+    return false
   }
 }
