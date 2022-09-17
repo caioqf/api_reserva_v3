@@ -1,11 +1,9 @@
 import Hospede from "../entity/Hospede";
 import HospedeService from "./interfaces/hospede.interface";
 import { HospedeRepository } from "./hospede.repository";
-import { singleton } from "tsyringe";
 import { CreateHospedeDto } from "./dto/create-hospede.dto";
 import AppError from "../shared/errors/AppError";
 
-@singleton()
 export default class HospedeServiceImpl implements HospedeService {
 
   async createHospede(data: CreateHospedeDto): Promise<any>{
@@ -24,7 +22,6 @@ export default class HospedeServiceImpl implements HospedeService {
   }
 
   async getAllHospedes(): Promise<Hospede[]> {
-    console.log('oi');
     
     const hospedes = HospedeRepository.find()
 

@@ -9,6 +9,7 @@
       "typeorm": "typeorm-ts-node-esm",
       "test": "jest",
       "test:watch": "jest --watch",
+      "test:coverage": "jest --coverage",
       "migrate-up": "node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/data-source.ts"
    },
    "devDependencies": {

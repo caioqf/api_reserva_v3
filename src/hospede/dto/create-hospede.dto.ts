@@ -9,7 +9,7 @@ export class CreateHospedeDto {
   email: string
 	
   @IsDateString() // formato: 2020-07-10 15:00:00.000
-  data_aniversario: Date
+  data_aniversario: string
 	
   @IsPhoneNumber('BR') // formato: 55XXxxxxxxxxx  ex: 5531999196707
   telefone: string

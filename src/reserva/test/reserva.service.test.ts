@@ -139,11 +139,12 @@ describe('Reserva Service', () => {
       jest.spyOn(ReservaRepository, 'findById').mockResolvedValueOnce(undefined)
 
       try {
-        
+        await reservaService.getOneReserva(1)
       } catch (error) {
         // Asseret
+        
         expect(error).toBeInstanceOf(AppError)
-        expect(error.message).toBe('Reserva não encontrado')
+        expect(error.message).toBe('Reserva não encontrada.')
         expect(error.statusCode).toBe(403)
       }
       expect(ReservaRepository.findById).toBeCalled()
@@ -335,6 +336,155 @@ describe('Reserva Service', () => {
     })
 
 
+  })
+
+  describe("fazer checkout", () => {
+    it("deve fazer o checkout de uma reserva com checkin feito", async () => {
+      // Arrange
+      const reservaConfirmada = {
+        nome_hotel: "Trivago",
+        numero_do_quarto: "B6",
+        valor_reserva: "300",
+        data_checkin: "2022-05-01",
+        data_checkout: "2022-05-07",
+        status_reserva: "Check-in",
+        hospede_id: 1,
+        id: 1, //da reserva
+        data_reserva: new Date().toISOString(),
+      }
+
+      // Act 
+
+      jest.spyOn(reservaService, 'getOneReserva').mockResolvedValueOnce(reservaConfirmada)
+      jest.spyOn(ReservaRepository, 'updateStatus').mockResolvedValueOnce({})
+
+      const result = await reservaService.makeCheckout(1, 1)
+
+      // Assert
+      expect(result).toMatchObject({ message: 'Check-out realizado' })
+      expect(reservaService.getOneReserva).toBeCalled()
+      expect(ReservaRepository.updateStatus).toBeCalled()
+    })
+
+    it("NÃO deve fazer o checkout de uma reserva que nao pertence ao hospede", async () => {
+      // Arrange
+      const reservaConfirmada = {
+        nome_hotel: "Trivago",
+        numero_do_quarto: "B6",
+        valor_reserva: "300",
+        data_checkin: "2022-05-01",
+        data_checkout: "2022-05-07",
+        status_reserva: "Check-out",
+        hospede_id: 1,
+        id: 1, //da reserva
+        data_reserva: new Date().toISOString(),
+      }
+
+      // Act 
+      jest.spyOn(reservaService, 'getOneReserva').mockResolvedValue(reservaConfirmada)
+
+      try {
+        await reservaService.makeCheckout(1, 2)
+      } catch (error) {
+        
+        // Assert
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Impossivel fazer checkout desta reserva.')
+        expect(error.statusCode).toBe(403)
+        
+      }
+      expect(reservaService.getOneReserva).toBeCalled()
+    })
+
+    it("NÃO deve fazer o checkout de uma reserva com checkout já feito", async () => {
+      // Arrange
+      const reservaConfirmada = {
+        nome_hotel: "Trivago",
+        numero_do_quarto: "B6",
+        valor_reserva: "300",
+        data_checkin: "2022-05-01",
+        data_checkout: "2022-05-07",
+        status_reserva: "Check-out",
+        hospede_id: 1,
+        id: 1, //da reserva
+        data_reserva: new Date().toISOString(),
+      }
+
+      // Act 
+      jest.spyOn(reservaService, 'getOneReserva').mockResolvedValue(reservaConfirmada)
+
+      try {
+        await reservaService.makeCheckout(1, 1)
+      } catch (error) {
+        
+        // Assert
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Check-out já realizado.')
+        expect(error.statusCode).toBe(403)
+        
+      }
+      expect(reservaService.getOneReserva).toBeCalled()
+    })
+
+    it("NÃO deve fazer o checkout de uma reserva apenas Confirmada", async () => {
+      // Arrange
+      const reservaConfirmada = {
+        nome_hotel: "Trivago",
+        numero_do_quarto: "B6",
+        valor_reserva: "300",
+        data_checkin: "2022-05-01",
+        data_checkout: "2022-05-07",
+        status_reserva: "Confirmada",
+        hospede_id: 1,
+        id: 1, //da reserva
+        data_reserva: new Date().toISOString(),
+      }
+
+      // Act 
+      jest.spyOn(reservaService, 'getOneReserva').mockResolvedValue(reservaConfirmada)
+
+      try {
+        await reservaService.makeCheckout(1, 1)
+      } catch (error) {
+        
+        // Assert
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Impossivel fazer check-out para reserva sem check-in.')
+        expect(error.statusCode).toBe(403)
+        
+      }
+      expect(reservaService.getOneReserva).toBeCalled()
+    })
+
+    it("NÃO deve fazer o checkout de uma reserva Cancelada", async () => {
+      // Arrange
+      const reservaConfirmada = {
+        nome_hotel: "Trivago",
+        numero_do_quarto: "B6",
+        valor_reserva: "300",
+        data_checkin: "2022-05-01",
+        data_checkout: "2022-05-07",
+        status_reserva: "Cancelada",
+        hospede_id: 1,
+        id: 1, //da reserva
+        data_reserva: new Date().toISOString(),
+      }
+
+      // Act 
+      jest.spyOn(reservaService, 'getOneReserva').mockResolvedValue(reservaConfirmada)
+
+      try {
+        await reservaService.makeCheckout(1, 1)
+      } catch (error) {
+        
+        // Assert
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Impossivel fazer check-out para reserva sem check-in.')
+        expect(error.statusCode).toBe(403)
+        
+      }
+      expect(reservaService.getOneReserva).toBeCalled()
+    })
   })
 
   describe("checar o status do quarto", () => {

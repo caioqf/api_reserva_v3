@@ -43,7 +43,7 @@ export default class ReservaServiceImpl implements ReservaService {
     const reserva = await ReservaRepository.findById(id_reserva)
     
     if (!reserva) {
-      throw new AppError('Reserva não encontrado', 403)
+      throw new AppError('Reserva não encontrada.', 403)
     }
 
     return reserva;
@@ -122,10 +122,9 @@ export default class ReservaServiceImpl implements ReservaService {
     // false = desocupado
     const ocupado = await ReservaRepository.findLatestById(numeroDoQuarto)
   
-    if (!ocupado) return false
+    if (!ocupado || ocupado?.status_reserva === "Cancelada" || ocupado.status_reserva === 'Check-out') return false
     
     if(ocupado.status_reserva === "Check-in" || ocupado.status_reserva === "Confirmada") return true
   
-    return false
   }
 }
