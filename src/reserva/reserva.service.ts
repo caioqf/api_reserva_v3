@@ -70,8 +70,12 @@ export default class ReservaServiceImpl implements ReservaService {
     // usuário, tornando impossivel de alterar e forçar uma reserva em nome de outra pessoa.
     
     const reserva = await ReservaRepository.findById(id_reserva)
-    
-    if (id_hospede != reserva!.hospede_id) {
+
+    if(!reserva) {
+      throw new AppError('Reserva não encontrada.', 403)
+    }
+
+    if (id_hospede != reserva.hospede_id) {
       throw new AppError('Impossivel fazer checkin desta reserva.', 403)
     }
 
