@@ -69,8 +69,8 @@ export default class ReservaServiceImpl implements ReservaService {
     // Na teoria imagino que o "data.id_hospede" deveria ser um id relacionado ao token do 
     // usuário, tornando impossivel de alterar e forçar uma reserva em nome de outra pessoa.
     
-    const reserva = await ReservaRepository.findById(id_reserva)
-
+    const reserva = await ReservaRepository.findOneBy({id: id_reserva})    
+    
     if(!reserva) {
       throw new AppError('Reserva não encontrada.', 403)
     }

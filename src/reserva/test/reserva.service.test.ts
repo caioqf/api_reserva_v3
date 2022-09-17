@@ -183,7 +183,7 @@ describe('Reserva Service', () => {
       }
 
       // Act
-      jest.spyOn(reservaService, 'makeCheckin').mockResolvedValueOnce({ message: 'Check-in realizado' })
+      jest.spyOn(ReservaRepository, 'findOneBy').mockResolvedValueOnce(reservaConfirmada)
       
       const checkinFeito = await reservaService.makeCheckin(1, 2)
       
@@ -207,20 +207,134 @@ describe('Reserva Service', () => {
       }
 
       // Act
-      jest.spyOn(ReservaRepository, 'findById').mockResolvedValueOnce(reservaConfirmada) 
+      jest.spyOn(ReservaRepository, 'findOneBy').mockResolvedValueOnce(reservaConfirmada) 
 
       try {
-        await reservaService.makeCheckin(1, 2)
+        await reservaService.makeCheckin(1, 2) // passando o hospede não pertencente a reserva
       } catch (error) {
-        
+  
         // Assert
-        expect(error).toBeInstanceOf(Error)
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Impossivel fazer checkin desta reserva.')
+        expect(error.statusCode).toBe(403)
       }
       
       expect(ReservaRepository.findById).toBeCalled()
     })
 
-    //...
+    it("NÃO deve fazer um checkin de uma reserva inexistente", async () => {
+      // Arrange
+
+      // Act
+      jest.spyOn(ReservaRepository, 'findOneBy').mockResolvedValueOnce(undefined) 
+
+      try {
+        await reservaService.makeCheckin(1, 2)
+      } catch (error) {
+  
+        // Assert
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Reserva não encontrada.')
+        expect(error.statusCode).toBe(403)
+      }
+      
+      expect(ReservaRepository.findById).toBeCalled()
+    })
+
+    it("NÃO deve fazer um checkin de uma reserva com checkin ja realizado", async () => {
+      // Arrange
+
+      const reservaConfirmada = {
+        nome_hotel: "Trivago",
+        numero_do_quarto: "B6",
+        valor_reserva: "300",
+        data_checkin: "2022-05-01",
+        data_checkout: "2022-05-07",
+        status_reserva: "Check-in",
+        hospede_id: 1,
+        id: 1, // da reserva
+        data_reserva: new Date().toISOString(),
+      }
+
+      // Act
+      jest.spyOn(ReservaRepository, 'findOneBy').mockResolvedValueOnce(reservaConfirmada) 
+
+      try {
+        await reservaService.makeCheckin(1, 1)
+      } catch (error) {
+  
+        // Assert
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Check-in já realizado para está reserva.')
+        expect(error.statusCode).toBe(403)
+      }
+      
+      expect(ReservaRepository.findById).toBeCalled()
+    })
+
+    it("NÃO deve fazer um checkin de uma reserva CANCELADA", async () => {
+      // Arrange
+
+      const reservaConfirmada = {
+        nome_hotel: "Trivago",
+        numero_do_quarto: "B6",
+        valor_reserva: "300",
+        data_checkin: "2022-05-01",
+        data_checkout: "2022-05-07",
+        status_reserva: "Cancelada",
+        hospede_id: 1,
+        id: 1, // da reserva
+        data_reserva: new Date().toISOString(),
+      }
+
+      // Act
+      jest.spyOn(ReservaRepository, 'findOneBy').mockResolvedValueOnce(reservaConfirmada) 
+
+      try {
+        await reservaService.makeCheckin(1, 1)
+      } catch (error) {
+  
+        // Assert
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Esta reserva foi cancelada.')
+        expect(error.statusCode).toBe(403)
+      }
+      
+      expect(ReservaRepository.findById).toBeCalled()
+    })
+
+    it("NÃO deve fazer um checkin de uma reserva com check-out ja realizado", async () => {
+      // Arrange
+
+      const reservaConfirmada = {
+        nome_hotel: "Trivago",
+        numero_do_quarto: "B6",
+        valor_reserva: "300",
+        data_checkin: "2022-05-01",
+        data_checkout: "2022-05-07",
+        status_reserva: "Check-out",
+        hospede_id: 1,
+        id: 1, // da reserva
+        data_reserva: new Date().toISOString(),
+      }
+
+      // Act
+      jest.spyOn(ReservaRepository, 'findOneBy').mockResolvedValueOnce(reservaConfirmada) 
+
+      try {
+        await reservaService.makeCheckin(1, 1)
+      } catch (error) {
+  
+        // Assert
+        expect(error).toBeInstanceOf(AppError)
+        expect(error.message).toBe('Check-out já realizado para esta reserva.')
+        expect(error.statusCode).toBe(403)
+      }
+      
+      expect(ReservaRepository.findById).toBeCalled()
+    })
+
+
   })
 
   describe("checar o status do quarto", () => {
