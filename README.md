@@ -12,7 +12,7 @@
 
 ## Sobre
 
-Uma API REST para gerenciamento de hospedes e reservas dos hospedes de um hotel. Testada utilizando Jest.
+Uma API REST para gerenciamento de hospedes e reservas dos hospedes de um hotel.
 
 ---
 

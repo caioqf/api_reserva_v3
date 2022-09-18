@@ -1,10 +1,8 @@
 jest.mock('../hospede.repository')
-import { Entity } from "typeorm"
 import AppError from "../../shared/errors/AppError"
 import { HospedeRepository } from "../hospede.repository"
 import HospedeServiceImpl from "../hospede.service"
-import Hospede from '../../entity/Hospede'
-import instance from "tsyringe/dist/typings/dependency-container"
+
 
 describe("Hospede Service", () => {
 

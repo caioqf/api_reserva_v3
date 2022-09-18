@@ -6,5 +6,6 @@ const config: Config.InitialOptions = {
   verbose: true,
   automock: false,
   bail: 1,
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 }
 export default config
