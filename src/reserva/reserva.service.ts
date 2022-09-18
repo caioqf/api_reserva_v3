@@ -121,7 +121,6 @@ export default class ReservaServiceImpl implements ReservaService {
     // true = ocupado
     // false = desocupado
     const ocupado = await ReservaRepository.findLatestById(numeroDoQuarto)
-    console.log(ocupado);
     
     if (!ocupado) return false
     

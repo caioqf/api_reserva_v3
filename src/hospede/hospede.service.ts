@@ -22,7 +22,6 @@ export default class HospedeServiceImpl implements HospedeService {
   }
 
   async getAllHospedes(): Promise<Hospede[]> {
-    console.log('oi');
     
     const hospedes = HospedeRepository.find()
 
