@@ -31,7 +31,7 @@ $ cd api_reserva_v3
 
 ## Pré-requisitos
 
-- Ter o npm ^8.15 instalado 
+- Ter o npm ^8.15 e node 16.5 instalados 
 
 O projeto foi dockerizado, tirando toda a necessidade de setup manual da aplicação e do banco de dados. Para subir os containers siga as intruções abaixo:
 - É necessário ter o Docker e docker-compose instalado* e configurado na máquina.
