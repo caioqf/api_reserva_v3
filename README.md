@@ -53,7 +53,7 @@ $ docker-compose up --build
 
 ## Rodando os testes
 
-A API possui testes automatizados. Para roda-los é necessário estar na root do projeto e rodar um dos seguintes comandos:
+A API possui testes automatizados. Para roda-los é necessário estar na pasta "app" do projeto e rodar um dos seguintes comandos:
 
 
 - Para apenas rodar os testes
@@ -95,3 +95,17 @@ $ npx typeorm-ts-node-esm migration:run -d ./src/data-source.ts
 
 - O .env está no repositorio para facilitar, num cenário ideal ele nunca deve estar disponível no repo contendo informações sensíveis.
 - A senha do banco em plain text no docker-compose também não é uma boa pŕatica, mas para facilitar foi feito dessa forma. O ideal seria definir no .yml como uma variável e passa-la como argunto no "docker-compose up".
+
+# Troubleshooting
+
+Caso tenha problemas para rodar, o erro possivelmente será por:
+
+- Rodando os comandos a partir da pasta errada:
+  - O docker-compose.yml fica na root. Logo o docker-compose deve ser rodado a partir dela.
+  - O package.json com os scripts para rodas os testes ficam dentro de "/app", logo, para rodar os testes, deve estar nela para encontrar os comandos.
+
+- Cache do docker:
+Limpar as imagens e contaners relativos ao projeto.
+
+- Espaço em disco
+A imagem do MSSQLServer é grande ~1.4 GB. Garantir que há espaço em disco para rodar
