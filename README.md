@@ -9,6 +9,8 @@
 - [Rodando Testes](#rodando-testes)
 - [Insomnia Collection](#insomnia-collection)
 - [Comandos do TypeORM](#typeorm-commands)
+- [Notas](#notas)
+- [Troubleshooting](#troubleshooting)
 
 ## Sobre
 
