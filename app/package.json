@@ -7,9 +7,9 @@
       "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
       "start": "ts-node src/index.ts",
       "typeorm": "typeorm-ts-node-esm",
-      "test": "jest",
-      "test:watch": "jest --watch-all",
-      "test:coverage": "jest --coverage",
+      "test": "docker exec --tty api_reservas npx jest",
+      "test:watch": "docker exec --tty api_reservas npx jest --watch-all",
+      "test:coverage": "docker exec --tty api_reservas npx jest --coverage",
       "migrate-up": "../node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/data-source.ts"
    },
    "devDependencies": {
