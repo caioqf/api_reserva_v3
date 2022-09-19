@@ -102,6 +102,9 @@ $ npx typeorm-ts-node-esm migration:run -d ./src/data-source.ts
 
 Caso tenha problemas para rodar, o erro possivelmente será por:
 
+- Portas ocupadas
+O projeto precisa de duas portas disponíveis: 9229 e 1433, uma das razões para ele não subir, pode ser a indisponibilidade delas na sua maquina. Essa informação será dada quando tentar rodar o comando do docker-compose.
+
 - Rodando os comandos a partir da pasta errada:
   - O docker-compose.yml fica na root. Logo o docker-compose deve ser rodado a partir dela.
   - O package.json com os scripts para rodas os testes ficam dentro de "/app", logo, para rodar os testes, deve estar nela para encontrar os comandos.
