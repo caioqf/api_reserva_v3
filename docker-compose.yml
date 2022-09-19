@@ -36,15 +36,14 @@ services:
       dockerfile: Dockerfile
       target: development
     volumes:
-      - .:/home/node
+      - ./:/home/node
     env_file:
       - .env
-    working_dir: '/home/node'
     entrypoint:
       - 'sh'
       - '-c'
-      # - 'sleep 1000'
-      - 'npm run migrate-up && npm run dev'
+      - 'sleep 1000'
+      # - 'npm run migrate-up && npm run dev'
     depends_on:
       sql_server:
         condition: service_healthy
