@@ -36,7 +36,8 @@ services:
       dockerfile: Dockerfile
       target: development
     volumes:
-      - ./:/home/node
+      - ./app:/home/node/app
+    working_dir: '/home/node/app'
     env_file:
       - .env
     entrypoint:

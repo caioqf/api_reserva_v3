@@ -9,7 +9,7 @@ RUN chown -R 1000:1000 /home/node
 # dev
 FROM node_base as development
 
-COPY ./package.json ./
-COPY ./package-lock.json ./
+COPY ./app/package.json ./
+COPY ./app/package-lock.json ./
 
 RUN npm install --force
