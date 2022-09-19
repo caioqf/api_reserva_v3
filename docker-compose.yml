@@ -43,8 +43,8 @@ services:
     entrypoint:
       - 'sh'
       - '-c'
-      - 'sleep 1000'
-      # - 'npm run migrate-up && npm run dev'
+      # - 'sleep 1000'
+      - 'npm run migrate-up && npm run dev'
     depends_on:
       sql_server:
         condition: service_healthy

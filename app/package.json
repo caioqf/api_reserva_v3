@@ -1,4 +1,4 @@
-{ 
+{
    "name": "api_reservas_v3",
    "version": "1.0.0",
    "main": "index.js",
@@ -10,7 +10,7 @@
       "test": "jest",
       "test:watch": "jest --watch-all",
       "test:coverage": "jest --coverage",
-      "migrate-up": "node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/data-source.ts"
+      "migrate-up": "../node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/data-source.ts"
    },
    "devDependencies": {
       "@types/body-parser": "^1.19.2",
