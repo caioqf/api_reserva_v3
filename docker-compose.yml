@@ -14,11 +14,11 @@ services:
     networks:
       - network-api
     environment:
-      SA_PASSWORD: "@teste1746"
+      SA_PASSWORD: "@teste1234"
       ACCEPT_EULA: "Y"
     healthcheck:
       #forma que encontrei para testar se o container do mssql subiu com exito
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "@teste1746" -Q "SELECT 1" -b -o /dev/null
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "@teste1234" -Q "SELECT 1" -b -o /dev/null
       interval: 10s
       timeout: 3s
       retries: 10

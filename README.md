@@ -90,3 +90,8 @@ $ npx typeorm migration:create src/migration/{**nome_da_migration**}
 ````
 $ npx typeorm-ts-node-esm migration:run -d ./src/data-source.ts 
 ````
+
+# Notas
+
+- O .env está no repositorio para facilitar, num cenário ideal ele nunca deve estar disponível no repo contendo informações sensíveis.
+- A senha do banco em plain text no docker-compose também não é uma boa pŕatica, mas para facilitar foi feito dessa forma. O ideal seria definir no .yml como uma variável e passa-la como argunto no "docker-compose up".
